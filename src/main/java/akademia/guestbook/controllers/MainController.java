@@ -2,6 +2,7 @@ package akademia.guestbook.controllers;
 
 import akademia.guestbook.models.EntryModel;
 import akademia.guestbook.services.EntryService;
+import akademia.guestbook.services.NotificationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,10 +15,12 @@ public class MainController {
 
     private EntryService entryService;
 
+
     @Autowired
     public MainController(EntryService entryService) {
         this.entryService = entryService;
     }
+
 
   /*  @GetMapping("/")
     public String index() {
@@ -32,10 +35,11 @@ public class MainController {
             Model model
     ) {
         if (name.isEmpty() || surname.isEmpty() || message.isEmpty()) {
+            model.addAttribute("error","Nieprawidłowa operacja!");
             return "index";
         }
         entryService.addEntry(new EntryModel(name, surname, message));
-        model.addAttribute("addedEntry", true);
+        model.addAttribute("success", "Wpis dodany poprawnie!");
         return "index";
     }
 
